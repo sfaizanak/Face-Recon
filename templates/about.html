@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<section id="download" class="download-area">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-6 col-md-9">
+                <div class="download-image mt-50 wow fadeInRightBig" data-wow-duration="1.3s" data-wow-delay="0.2s">
+                    <img class="image" src="{% static "img/f3.jpg" %}" alt="download">
+                    
+                    <div class="download-shape-1"></div>
+                    <div class="download-shape-2">
+                    </div>
+                </div> <!-- download image -->
+            </div>
+            <div class="col-lg-6">
+                <div class="download-content mt-45 mb-45 wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.5s">
+                    <h3 class="download-title">About Us</h3>
+                    <p class="text">At FaceSnap, we're passionate about revolutionizing student identification. Our team of experts has developed a state-of-the-art facial recognition system to streamline access to college details. With a focus on innovation and efficiency, we aim to enhance campus security and convenience for both students and institutions. Join us in shaping the future of student recognition technology.</p>
+                </div> <!-- download image -->
+            </div>
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+
+
+{% endblock content %}

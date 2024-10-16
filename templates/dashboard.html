@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+  <h1 align="center">{{title}}</h1>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Sr. No.</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Mobile No.</th>
+          {% if title == 'Student Dashboard' %}
+          <th scope="col">Year </th>
+          {% else %}
+          <th scope="col">Designation </th>
+          {% endif %}
+          <th>Image</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if data %}
+        {% for i in data %}
+        <tr>
+          <th>{{forloop.counter}}</th>
+          {% if i.staffName %}
+          <td>{{i.staffName}}</td>
+          {% else %}
+          <td>{{i.studentName}}</td>
+          {% endif %}
+          <td>{{i.email}}</td>
+          <td>{{i.mobile}}</td>
+          {% if i.desg %}
+          <td>{{i.desg}}</td>
+          {% else %}
+          <td>{{i.year}}</td>
+          {% endif %}
+          <td><img src="/media/{{i.img}}" alt="" width="100" loading="lazy"></td>
+          {% if i.studentName %}
+          <td><a href="/dashboard/student/update/?nameSlug={{i.name_slug}}">Edit</a></td>
+          {% else %}
+          <td><a href="/dashboard/staff/update/?nameSlug={{i.name_slug}}">Edit</a></td>
+          {% endif %}
+          <td><a href="/delete/{{i.name_slug}}">Delete</a></td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+          <td colspan="7">
+            <h2 align="center">No Data Found</h2>
+          </td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock %}

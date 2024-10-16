@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Successfull</title>
+    <link rel="stylesheet" href="{% static "CSS/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "CSS/style.css" %}">
+</head>
+
+<body>
+    <section>
+        <div class="loderContainer">
+            <div class="box">
+                <p class="pt-5">Thank You for Registering from <b>sfaizanak</b></p>
+                <p class="pb-5"> Your Registeration Has been Done Successfullly</p>
+                <a href="{% url "studentLogin" %}" class="btn btn-primary px-4">OK</a>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

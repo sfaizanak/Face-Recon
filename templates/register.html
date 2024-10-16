@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% block content %}
+<script>
+    function validateForm() {
+        let nameRegex = /^[a-zA-Z ]*$/; // Regex for alphabetic characters and space
+        let numberRegex = /^[0-9]+$/; // Regex for numeric characters
+        let pwdRegex = /^[a-zA-z0-9!@#$%^&*_-%]+$/ //  Regex for password
+
+
+        let firstName = document.getElementById('inputFirstName').value.trim();
+        let middleName = document.getElementById('inputMiddleName').value.trim();
+        let lastName = document.getElementById('inputLastName').value.trim();
+        let email = document.getElementById('inputEmail').value.trim();
+        let mobile = document.getElementById('inputPhoneNumber').value.trim();
+        let city = document.getElementById('inputCity').value.trim();
+        let addr = document.getElementById('inputAddress').value.trim();
+        let img = document.getElementById('inputImage');
+        let pwd = document.getElementById('inputPassword4').value.trim();
+
+        if (!nameRegex.test(firstName)) {
+            alert("Please enter a valid first name.");
+            return false;
+        }
+
+        if (middleName !== "" && !nameRegex.test(middleName)) {
+            alert("Please enter a valid middle name.");
+            return false;
+        }
+
+        if (!nameRegex.test(lastName)) {
+            alert("Please enter a valid last name.");
+            return false;
+        }
+
+        if (!pwdRegex.test(pwd)) {
+            alert('Password should contain lower & upper cased letters & numbers');
+            return false;
+        }
+
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address ending with @gmail.com, @yahoo.com, or @abc.com.");
+            return false;
+        }
+
+        if (!numberRegex.test(mobile) && mobile.length != 10) {
+            alert("Please enter a valid mobile number.");
+            return false;
+        }
+
+
+        if (!nameRegex.test(city)) {
+            alert("Please enter a valid city name");
+            return false;
+        }
+
+        if (img.files && img.files[0]) {
+            let maxSize = 200 * 1024;
+            if (img.files[0].size > maxSize) {
+                alert('Please upload image of size <= 200KB');
+                return false;
+            }
+        }
+
+        document.querySelector('.loderContainer').style.display = 'flex';
+        return true;
+
+    }
+</script>
+
+<section class="center">
+    <div class="details">
+        <div class="recentOrders">
+            <div class="container1">
+                <form method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="username">User-ID</label>
+                            <input type="text" class="form-control" id="username" placeholder="User-id" required
+                                name="username" {% if request.path != '/student-register/' %} disabled value="{{ id }}"{% endif %} autocomplete="username">
+                            {% if message %}
+                            <br>
+                            <p class="alert alert-danger">{{ message }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Password</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="Password"
+                                required name="password">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputFirstName">First Name</label>
+                            <input type="text" class="form-control" id="inputFirstName" placeholder="First Name"
+                                required name="firstName" value="{{ firstName }}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputMiddleName">Middle Name</label>
+                            <input type="text" class="form-control" id="inputMiddleName" placeholder="Middle Name"
+                                name="middleName" value="{{ middleName }}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputLastName">Last Name</label>
+                            <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required
+                                name="lastName" value="{{ lastName }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email addr..." required
+                            name="email" value="{{ email }}" autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCollegeName">College Name</label>
+                        {% if request.path == '/student-register/' %}
+                        <select name="collegeName" class="form-control" required id="inputCollegeName">
+                            {% for college in colleges %}
+                            <option value="{{ college.collegeName }}">{{ college.collegeName }}</option>
+                            {% endfor %}
+                        </select>
+                        {% else %}
+                        <input type="text" class="form-control" disabled value="{{ collegeName }}" name="collegeName">
+                        {% endif %}
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputDepartment">Department</label>
+                            <select name="dept" class="form-control" value="{{ dept }}" required id="inputDepartment">
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Computer Application">Computer Application</option>
+                                <option value="Science">Science</option>
+                                <option value="Commerce">Commerce</option>
+                                <option value="Arts">Arts</option>
+                            </select>
+                        </div>
+                        {% if request.path == '/student-register/' %}
+                        <div class="form-group col-md-6">
+                            <label for="inputYear">Year</label>
+                            <select name="year" class="form-control" value="{{ year }}" required id="inputYear">
+                                <option value="FY">First Year</option>
+                                <option value="SY">Second Year</option>
+                                <option value="TY">Third Year</option>
+                                <option value="TY">Masters-1</option>
+                                <option value="TY">Masters-2</option>
+                            </select>
+                        </div>
+                        {% else %}
+                        <div class="form-group col-md-6">
+                            <label for="inputDesignation">Designation</label>
+                            <select name="desg" class="form-control" value="{{ designation }}" id="inputDesignation"
+                                required>
+                                <option value="Professor">Professor</option>
+                                <option value="Non-Teaching">Non-Teaching</option>
+                                <option value="Bouncer">Bouncer</option>
+                            </select>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPhoneNumber">Phone No</label>
+                        <input type="number" class="form-control" id="inputPhoneNumber" placeholder="Mobile no..."
+                            required name="mobile" value="{{ mobile }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required
+                            name="addr" value="{{ addr }}">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">City</label>
+                            <input type="text" class="form-control" id="inputCity" required name="city"
+                                value="{{ city }}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputImage">Image</label>
+                            <input type="file" class="form-control" id="inputImage" required name="img" id="inputImage"
+                                accept=".jpg">
+                            {% if imgMessage %}
+                            <br>
+                            <p class="alert alert-danger">{{ imgMessage }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary submit">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

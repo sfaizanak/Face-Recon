@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/style1.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/default.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/lineicons.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/animate.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/profile.css" %}">
+</head>
+
+<body>
+    <div class="loderContainer">
+        <div>
+            <div class="loader"></div>
+            <p class="pl-3 pt-4">loading....</p>
+        </div>
+    </div>
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top mask-custom shadow-1 pl-20">
+            <a class="navbar-brand" href="{% url "home" %}"><img src="{% static "img/face-recognition.png" %}"
+                    alt="logo" width="80"></a>
+            <button class="navbar-toggler pr-20" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <svg width="40" height="40" viewBox="0 0 50 50">
+                    <path
+                        d="M 0 9 L 0 11 L 50 11 L 50 9 Z M 0 24 L 0 26 L 50 26 L 50 24 Z M 0 39 L 0 41 L 50 41 L 50 39 Z">
+                    </path>
+                </svg>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item link-animate {% if request.path == '/' %}active{% endif %}">
+                        <a class="nav-link " href="{% url "home" %}">Home </a>
+                    </li>
+                    <li class="nav-item link-animate {% if request.path == '/college-login/' %}active{% endif %}">
+                        <a class="nav-link " href="/college-login/">College Login </a>
+                    </li>
+                    <li class="nav-item link-animate {% if request.path == '/student-login/' %}active{% endif %}">
+                        <a class="nav-link " href="{% url "studentLogin" %}">Student Login</a>
+                    </li>
+                    <li class="nav-item link-animate {% if request.path == '/about-us/' %}active{% endif %}">
+                        <a class="nav-link" href="/about-us/">About us</a>
+                    </li>
+                    {% if request.path == '/dashboard/student/' or request.path == '/dashboard/staff/' or title == 'Staff Registeration' or request.path == '/dashboard/student/update/' %}
+                    <li
+                        class="nav-item dropdown {% if request.path == '/dashboard/student/' or request.path == '/dashboard/staff/' or title == 'Staff Registeration' %}active{% endif %}">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dashboard
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item"
+                                href="/dashboard/student/?collegeName={{collegeName}}&searchDept=all&searchName=">Student
+                                Dashboard</a>
+                            <a class="dropdown-item"
+                                href="/dashboard/staff/?collegeName={{collegeName}}&searchDept=all&searchName=">Staff
+                                Dashboard</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/dashboard/staff-register/{{collegeName}}">Staff
+                                Registeration</a>
+                        </div>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        {% if request.path == '/dashboard/student/' or request.path == '/dashboard/staff/' %}
+                        <a class="nav-link " href="{% url "collegeLogin" %}">Log Out</a>
+                        {% elif request.path == '/student-login/profle/' %}
+                        <a class="nav-link " href="{% url "studentLogin" %}">Log Out</a>
+                        {% elif request.path == '/staff-login/profle/' %}
+                        <a class="nav-link " href="{% url "staffLogin" %}">Log Out</a>
+                        {% endif %}
+                    </li>
+                </ul>
+                {% if request.path == '/dashboard/staff/' or request.path == '/dashboard/student/' %}
+                <form class="form-inline my-2 my-lg-0" method="GET">
+                    <input type="hidden" name="collegeName" value="{{collegeName}}">
+                    <select name="searchDept" class="form-control">
+                        <option value="all" selected>Choose Department</option>
+                        <option value="all">All</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Computer Aplication">Computer Application</option>
+                        <option value="Science">Science</option>
+                        <option value="Commerce">Commerce</option>
+                        <option value="Arts">Arts</option>
+                    </select>
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search by Name" aria-label="Search"
+                        name="searchName">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                {% endif %}
+            </div>
+        </nav>
+    </header>

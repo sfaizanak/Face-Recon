@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="center">
+    <div class="details-1">
+        <div class="recent-orders-1">
+            <div class="container-1">
+                <div class="container-2">
+                    {% for i in data %}
+                    <div class="padding pb-4">
+                        <div class="font-box">
+                            <div class="top-box">
+                                <p class="p-3 org-heading">{{i.collegeName}}</p>
+                                <img src="/media/{{i.img}}" alt="Card image cap">
+                            </div>
+                            <div class="bottom-box">
+                                <p>User Id: {{i.username}}</p>
+                                {% if i.staffName %}
+                                <p class="designation">Name: {{i.staffName}}</p>
+                                {% else %}
+                                <p class="designation">Name: {{i.studentName}}</p>
+                                {% endif %}
+                                <p class="designation">Email: {{i.email}}</p>
+                                <p class="designation">Department : {{i.dept}}</p>
+                                {% if i.desg %}
+                                <p class="designation">Designation : {{i.desg}}</p>
+                                {% else %}
+                                <p class="designation">Year : {{i.year}}</p>
+                                {% endif %}
+                                <p class="designation">Phone No.: {{i.mobile}}</p>
+                                <p class="designation">Address: {{i.addr}} , {{i.city}}</p>
+                                {% if i.staffName or request.path == '/staff-login/scan-face/profile/' %}
+                            </div>
+                        </div>
+                        <a class="btn btn-primary btn-center-1" href="/staff-login/scan-face/?collegeName={{i.collegeName}}&data={{i.username}}">Scan Face</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+</section>
+{% endblock content %}

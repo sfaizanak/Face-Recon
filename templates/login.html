@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="center">
+        <div class="details">
+            <div class="recentOrders">
+                <div class="container1">
+    <main>
+        <form class="px-4 py-3" method="post" onsubmit="return loader()">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleDropdownFormEmail1">{{label}}</label>
+                <input type="text" class="form-control" id="exampleDropdownFormEmail1"
+                placeholder="{{label}} Username" name="username" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="exampleDropdownFormPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password" name="password" required>
+            </div>
+            {% if message %}
+                <p class="alert alert-danger">{{message}}</p>
+            {% endif %}
+            {% if request.path == '/student-login/' %}
+            <div class="form-group">
+                <a href="{% url "studentRegister" %}">Register</a>
+            </div>
+            {% elif request.path == '/college-login/' %}
+            <div class="form-group">
+                <a href="{% url "staffLogin" %}">Staff Login</a>
+            </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary px-4 submit">Sign in</button>
+        </form>
+    </main>
+</div>
+{% endblock content %}

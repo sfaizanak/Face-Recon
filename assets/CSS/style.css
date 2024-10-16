@@ -1,0 +1,131 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 30px;
+}
+
+.loderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(211, 211, 211, 0.856);
+  z-index: 9999;
+}
+
+.loader {
+  height: 100px;
+  width: 100px;
+  border: 5px solid whitesmoke;
+  border-top: 5px solid skyblue;
+  border-radius: 50%;
+  animation: loader infinite ease-in-out 1s;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-center {
+  position: absolute;
+  left: 35%;
+}
+
+.details {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+}
+
+.details .recentOrders {
+  position: relative;
+  width: 50%;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 1);
+  border-radius: 20px;
+  background-color: rgba(255, 252, 252, 0.925);
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 50vh;
+  width: 50vw;
+  background-color: white;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .details {
+    grid-template-columns: 1fr;
+  }
+
+  .details .recentOrders {
+    width: 100%;
+    overflow-x: visible;
+  }
+
+  .status.inProgress {
+    white-space: nowrap;
+  }
+
+  .btn-center {
+    position: absolute;
+    left: 30%;
+  }
+
+  .box {
+    width: 100%;
+  }
+}
+
+.container1 {
+  max-width: 700px;
+  margin: 5px auto;
+  font-size: 18px;
+  color: black;
+  font-style: normal;
+}
+
+#videoElement {
+  transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  -moz-transform: scaleX(1);
+}
+
+.org-heading {
+  color: black;
+  font-weight: bolder;
+  position: relative;
+  text-align: center;
+  top: 10px;
+}
+
+.container_404 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#error_404 {
+  font-weight: 900;
+}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<main class="center">
+    <div class="details">
+        <div class="recent-orders">
+            <div class="container-1">
+                <div class="container-2">
+                    <form method="post" enctype="multipart/form-data" onsubmit="return loader()">
+                        {% csrf_token %}
+                        {% if message %}
+                        <p class="alert alert-danger" align="center">{{message}}</p>
+                        {% endif %}
+                        <video id="videoElement" autoplay></video><br><br>
+                        <input type="hidden" name="image_data" id="img">
+                        <button id="captureButton" class="btn btn-primary px-4 btn-center submit" type="submit">Scan
+                            Face</button>
+                    </form>
+                    <script>
+                        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'self' } })
+                                .then(function (stream) {
+                                    let videoElement = document.getElementById('videoElement');
+                                    videoElement.srcObject = stream;
+                                })
+                                .catch(function (error) {
+                                    console.error('Error accessing the camera:', error);
+                                });
+                        } else {
+                            console.error('getUserMedia is not supported in this browser');
+                        }
+                        document.getElementById('captureButton').addEventListener('click', function () {
+                            let videoElement = document.getElementById('videoElement');
+                            let canvas = document.createElement('canvas');
+                            let context = canvas.getContext('2d');
+                            canvas.width = videoElement.videoWidth;
+                            canvas.height = videoElement.videoHeight;
+                            context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+                            let imageDataURL = canvas.toDataURL('image/jpeg');
+                            document.getElementById('img').value = imageDataURL
+                        });
+                    </script>
+</main>
+{% endblock content %}
